@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <InspireSmart_IConnectSync>
+            <active>true</active>
+            <codePool>community</codePool>    
+			<depends>
+                <Mage_Core/>
+            </depends>			
+        </InspireSmart_IConnectSync>
+    </modules>    
+</config>
