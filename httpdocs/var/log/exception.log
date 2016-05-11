@@ -46,3 +46,31 @@ Stack trace:
 #8 /vagrant/httpdocs/app/Mage.php(448): Mage_Core_Model_App->dispatchEvent('default', Array)
 #9 /vagrant/httpdocs/cron.php(78): Mage::dispatchEvent('default')
 #10 {main}
+2016-05-10T17:45:07+00:00 ERR (3): 
+exception 'Zend_Mail_Transport_Exception' with message 'Unable to send mail. ' in /vagrant/httpdocs/lib/Zend/Mail/Transport/Sendmail.php:137
+Stack trace:
+#0 /vagrant/httpdocs/lib/Zend/Mail/Transport/Abstract.php(348): Zend_Mail_Transport_Sendmail->_sendMail()
+#1 /vagrant/httpdocs/lib/Zend/Mail.php(1194): Zend_Mail_Transport_Abstract->send(Object(Zend_Mail))
+#2 /vagrant/httpdocs/app/code/core/Mage/Core/Model/Email/Queue.php(241): Zend_Mail->send()
+#3 [internal function]: Mage_Core_Model_Email_Queue->send(Object(Mage_Cron_Model_Schedule))
+#4 /vagrant/httpdocs/app/code/core/Mage/Cron/Model/Observer.php(326): call_user_func_array(Array, Array)
+#5 /vagrant/httpdocs/app/code/core/Mage/Cron/Model/Observer.php(72): Mage_Cron_Model_Observer->_processJob(Object(Mage_Cron_Model_Schedule), Object(Mage_Core_Model_Config_Element))
+#6 /vagrant/httpdocs/app/code/core/Mage/Core/Model/App.php(1358): Mage_Cron_Model_Observer->dispatch(Object(Varien_Event_Observer))
+#7 /vagrant/httpdocs/app/code/core/Mage/Core/Model/App.php(1337): Mage_Core_Model_App->_callObserverMethod(Object(Mage_Cron_Model_Observer), 'dispatch', Object(Varien_Event_Observer))
+#8 /vagrant/httpdocs/app/Mage.php(448): Mage_Core_Model_App->dispatchEvent('default', Array)
+#9 /vagrant/httpdocs/cron.php(78): Mage::dispatchEvent('default')
+#10 {main}
+2016-05-11T11:00:04+00:00 ERR (3): 
+exception 'Zend_Mail_Transport_Exception' with message 'Unable to send mail. ' in /vagrant/httpdocs/lib/Zend/Mail/Transport/Sendmail.php:137
+Stack trace:
+#0 /vagrant/httpdocs/lib/Zend/Mail/Transport/Abstract.php(348): Zend_Mail_Transport_Sendmail->_sendMail()
+#1 /vagrant/httpdocs/lib/Zend/Mail.php(1194): Zend_Mail_Transport_Abstract->send(Object(Zend_Mail))
+#2 /vagrant/httpdocs/app/code/core/Mage/Core/Model/Email/Queue.php(241): Zend_Mail->send()
+#3 [internal function]: Mage_Core_Model_Email_Queue->send(Object(Mage_Cron_Model_Schedule))
+#4 /vagrant/httpdocs/app/code/core/Mage/Cron/Model/Observer.php(326): call_user_func_array(Array, Array)
+#5 /vagrant/httpdocs/app/code/core/Mage/Cron/Model/Observer.php(72): Mage_Cron_Model_Observer->_processJob(Object(Mage_Cron_Model_Schedule), Object(Mage_Core_Model_Config_Element))
+#6 /vagrant/httpdocs/app/code/core/Mage/Core/Model/App.php(1358): Mage_Cron_Model_Observer->dispatch(Object(Varien_Event_Observer))
+#7 /vagrant/httpdocs/app/code/core/Mage/Core/Model/App.php(1337): Mage_Core_Model_App->_callObserverMethod(Object(Mage_Cron_Model_Observer), 'dispatch', Object(Varien_Event_Observer))
+#8 /vagrant/httpdocs/app/Mage.php(448): Mage_Core_Model_App->dispatchEvent('default', Array)
+#9 /vagrant/httpdocs/cron.php(78): Mage::dispatchEvent('default')
+#10 {main}

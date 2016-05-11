@@ -166,15 +166,18 @@
     <adminhtml>
     <acl>
         <resources>
+			<all>
+                <title>Allow Everything</title>
+            </all>
             <admin>
                 <children>
                     <system>
                         <children>
                             <config>
                                 <children>
-                                    <inspiresmart>
-                                        <title>IConnect - All</title>
-                                    </inspiresmart>
+                                    <iconnectsync>
+                                        <title>iConnect Sync Settings</title>
+                                    </iconnectsync>
                                 </children>
                             </config>
                         </children>

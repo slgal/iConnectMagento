@@ -122,6 +122,15 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
 		
 			$orderItems[]=$row;				
 		}
+		
+		$orderCompleteDate;	
+		$commentCollection = $order->getStatusHistoryCollection();								
+		foreach ($commentCollection as $comment) {    
+		  if ($comment->getStatus() === $helper->orderSyncStatus()) {
+			$orderCompleteDate = $comment->getCreatedAt();
+		  }
+		}
+					  
 		$orders = array(array(
 				"LocationId" => $location_id,
 				"OrderSourceId" => 4,
@@ -133,7 +142,7 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
 				"Taxes" => $order->getTaxAmount(),
 				"Total" => $order->getGrandTotal(),				
 				"CurrencyCode" => $order->getOrderCurrencyCode(),
-				"CreatedOn" => str_replace(' ','T',$order->getCreatedAt()),
+				"CreatedOn" => str_replace(' ','T', $orderCompleteDate),
 				"SalesPersonID" => -100001, //hardcoded value to map company admin				
 				"Version" => "magento-".Mage::getVersion(),						
 				"Items"=> $orderItems,
@@ -143,7 +152,7 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
 					"PaymentStatusID"=> 10,// paid
 					"PaymentAmount"=> floatval($order->getTotalPaid()),
 					"SalesPersonID"=> -100001, //hardcoded value to map company admin
-					"CreatedOn"=> str_replace(' ','T',$order->getCreatedAt())					
+					"CreatedOn"=> str_replace(' ','T',$orderCompleteDate)					
 				  )
 				),
 				"ShippingDetailsData" => array(),

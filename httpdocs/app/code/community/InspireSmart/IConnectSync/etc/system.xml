@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <tabs>
-        <iconnectsync translate="label" module="iconnectsync">
+        <iconnectsync_tab translate="label" module="iconnectsync">
             <label>iConnect Sync</label>
             <sort_order>100</sort_order>
-        </iconnectsync>
+        </iconnectsync_tab>
     </tabs>
     <sections>
         <iconnectsync translate="label" module="iconnectsync">
             <label>iConnect Sync Settings</label>
-            <tab>iconnectsync</tab>
+            <tab>iconnectsync_tab</tab>
             <sort_order>1000</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
