@@ -30,6 +30,9 @@ class InspireSmart_IConnectSync_Model_Observer
     public function sales_order_place_after(Varien_Event_Observer $observer)
     {	
         $order = $observer->getEvent()->getOrder();
+		$location_id = $order->getStore()->getWebsite()->getData('iconnect_location_id');
+		if(!$location_id)
+			 return $this;
         try {
             $syncModel = Mage::getModel('iconnectsync/que');
             $data = array(
