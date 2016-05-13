@@ -5,19 +5,9 @@
 		{		
 			$this->loadLayout();		
 			try {
-				
-			$processes = Mage::getSingleton('index/indexer')->getProcessesCollection();
-			$processes->walk('setMode', array(Mage_Index_Model_Process::MODE_MANUAL));
-			$processes->walk('save');		
-					   
+						 
 			// run product sync
-			InspireSmart_IConnectSync_Model_Product::runSyncing();    	
-
-			$processes->walk('setMode', array(Mage_Index_Model_Process::MODE_REAL_TIME));
-			$processes->walk('save');
-
-			$processes->walk('reindexAll');
-			$processes->walk('reindexEverything');
+			InspireSmart_IConnectSync_Model_Product::runSyncing();    				
 
 			$block = $this->getLayout()
 				->createBlock('core/text', 'example-block')

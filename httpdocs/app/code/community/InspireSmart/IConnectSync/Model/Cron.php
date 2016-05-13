@@ -51,16 +51,8 @@ class InspireSmart_IConnectSync_Model_Cron
         }
 			
 		try {						
-			//sync products			
-			$processes = Mage::getSingleton('index/indexer')->getProcessesCollection();
-			$processes -> walk('setMode', array(Mage_Index_Model_Process::MODE_MANUAL));
-			$processes -> walk('save');
-									
-			InspireSmart_IConnectSync_Model_Product::runSyncing();
-					
-			$processes->walk('reindexAll');
-			$processes->walk('setMode', array(Mage_Index_Model_Process::MODE_REAL_TIME));
-			$processes->walk('save');
+			//sync products					
+			InspireSmart_IConnectSync_Model_Product::runSyncing();		
 		} 
 		catch (Exception $e) {
             // save any errors.
