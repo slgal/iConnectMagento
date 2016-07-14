@@ -30,7 +30,7 @@ class InspireSmart_IConnectSync_Model_Cron
             $queueCollection = Mage::getModel('iconnectsync/que')
                 ->getCollection()
 				->join(array('order' => 'sales/order'), 'main_table.entity_id=order.entity_id')				
-                ->addFieldToFilter('synced_at', array('null' => true))
+                //->addFieldToFilter('synced_at', array('null' => true))
 				->addFieldToFilter('order.status', array('eq' => $status));
 				
             InspireSmart_IConnectSync_Model_Que::doSync($queueCollection);
