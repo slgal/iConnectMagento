@@ -2,7 +2,7 @@
 <config>
     <modules>
         <InspireSmart_IConnectSync>
-            <version>1.2.0.1</version>
+            <version>1.2.1.0</version>
         </InspireSmart_IConnectSync>
     </modules>
     <global>
@@ -80,15 +80,7 @@
         </events>
     </global>
 	<crontab>
-        <jobs>
-            <iconnectsync_syncproducts>
-                <schedule>
-                    <cron_expr>*/15 * * * *</cron_expr>
-                </schedule>
-                <run>
-                    <model>iconnectsync/cron::syncProducts</model>
-                </run>
-            </iconnectsync_syncproducts>
+        <jobs>      
 			<iconnectsync_syncorders>
                 <schedule>
                     <cron_expr>*/15 * * * *</cron_expr>

@@ -7,7 +7,7 @@
 			try {
 						 
 			// run product sync
-			InspireSmart_IConnectSync_Model_Product::runSyncing();    				
+			InspireSmart_IConnectSync_Model_Cron::syncOrders(123);    				
 
 			$block = $this->getLayout()
 				->createBlock('core/text', 'example-block')

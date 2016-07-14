@@ -33,8 +33,7 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
             $order = Mage::getModel('sales/order')->load($sync->getEntityId());
             try {
 				
-				$fields = self::getOrderArray($order);
-			
+				$fields = self::getOrderArray($order);				
 				$results = $helper->sendData(self::ICONNECT_PUT_ORDERS_API,json_encode($fields));
 				
 				$failed = array_filter(json_decode($results), function($item)
@@ -59,7 +58,7 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
 							);	
 						}
 					}															
-				}			               
+				}		               
             } catch (Exception $e) {
                 $order->addStatusHistoryComment(									
                     $helper->__('Order failed sync: %s', $e->getMessage()),
@@ -76,26 +75,22 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
 		foreach($order->getItemsCollection() as $item)
 		{
 			$row=array();
-			
-			$productId = intval($item->getProduct()->getData('iconnect_product_id'));
-			$sku = $item->getSku();
-			if($productId === 0)
-			{
-				$productId = -100001;
-				$sku = "000";
-			}
-			
-			$row['ProductID'] = $productId;
+			$row['ProductID'] = -100001;
 			$row['Name'] = $item->getName();
-			$row['SKU'] = $sku;
+			$row['SKU'] =  $item->getSku();
 			$row['CategoryName'] = 'Online Product';
 			$row['Price'] = floatval($item->getPrice());
 			$row['Cost'] = floatval($item->getCost());
 			$row['Quantity'] = intval($item->getQtyOrdered());			
-			$row['Tax'] = floatval($item->getTaxAmount());
-			$row['AdditionalTaxes'] = array();
-			$row['Discount'] = floatval($item->getDiscountAmount());
-								
+			$row['Tax'] = $item->getTaxAmount();
+			$row['Discount'] = floatval($item->getDiscountAmount());			
+			$row['AdditionalTaxes'] = array(
+				/*array(
+					'Id' => -100001,
+					'Amount' => $item->getTaxAmount()
+				)*/
+			);
+												
 			$orderItems[]=$row;
 		}
 		return $orderItems;

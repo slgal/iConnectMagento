@@ -41,25 +41,6 @@ class InspireSmart_IConnectSync_Model_Cron
             return $e->getMessage();
         }
     }
-
-	public static function syncProducts($schedule)
-    {    
-		$helper = Mage::helper('iconnectsync');
-		
-		if ($helper->isSyncPaused()) {
-            return;
-        }
-			
-		try {						
-			//sync products					
-			InspireSmart_IConnectSync_Model_Product::runSyncing();		
-		} 
-		catch (Exception $e) {
-            // save any errors.
-            Mage::logException($e);
-            return $e->getMessage();
-        }
-    }
 	
     /**
      * Clean old records on schedule

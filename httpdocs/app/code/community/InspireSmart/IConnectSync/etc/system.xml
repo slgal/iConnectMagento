@@ -52,35 +52,7 @@
                             <comment>Orders will be synced once their state will be equals to selected value. </comment>
                         </sync_order_on_status>
                     </fields>
-                </general>
-                <versions translate="label" module="iconnectsync">
-                 	<label>Row Versions</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>1001</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>  
-						<run>
-							<label>Run synchronization process: </label>
-                            <comment>Click this button if you would like to run synchronization process. Please note that first run may take a lot of time.</comment>
-                            <frontend_model>iconnectsync/button</frontend_model>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-						</run>						
-                        <products>
-                            <label>Products: </label>
-                            <comment>Current row version for the products. Set 0 to resync all products.</comment>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </products>                        
-                    </fields>
-                </versions>
+                </general>            
             </groups>
         </iconnectsync>
     </sections>
