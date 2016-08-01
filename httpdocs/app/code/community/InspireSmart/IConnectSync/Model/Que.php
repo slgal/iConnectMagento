@@ -68,9 +68,27 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
             $order->save();
         }
     }
-	
-	static private function getOrderItemsArray($order)
+	static private function getOrderTaxes($order,$location_id)
 	{
+		$orderTaxes = array();
+		if($order->getTaxAmount()>0)
+		{
+			$tax_info = $order->getFullTaxInfo();
+			foreach($tax_info as $tax)
+			{
+				$row = array();
+				$row['Amount'] = $tax['amount'];
+				$row['CompanyID'] = $location_id;
+				$row['Name'] = 'Sales Tax';
+				$row['Rate'] = $tax['percent'];
+				$row['TaxID'] = -100001;
+				$orderTaxes[]=$row;
+			}
+		}
+		return $orderTaxes;
+	}
+	static private function getOrderItemsArray($order)
+	{		
 		$orderItems = array();		
 		foreach($order->getItemsCollection() as $item)
 		{
@@ -84,12 +102,7 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
 			$row['Quantity'] = intval($item->getQtyOrdered());			
 			$row['Tax'] = $item->getTaxAmount();
 			$row['Discount'] = floatval($item->getDiscountAmount());			
-			$row['AdditionalTaxes'] = array(
-				/*array(
-					'Id' => -100001,
-					'Amount' => $item->getTaxAmount()
-				)*/
-			);
+			$row['AdditionalTaxes'] = array();
 												
 			$orderItems[]=$row;
 		}
@@ -101,22 +114,8 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
 		$location_id = $order->getStore()->getWebsite()->getData('iconnect_location_id');
 		$helper = Mage::helper('iconnectsync');
 		
-		$orderItems = self::getOrderItemsArray($order);
-		//if shipping is more that 0 than add it as an item
-		if($order->getShippingAmount()>0)
-		{
-			$row=array();
-			
-			$row['ProductID'] = -100001;
-			$row['Name'] = 'Shipping';
-			$row['CategoryName'] = 'Online Product';	
-			$row['SKU'] = '000';			
-			$row['Price'] = floatval($order->getShippingAmount());			
-			$row['Quantity'] = 1;			
-			$row['AdditionalTaxes'] = array();
-		
-			$orderItems[]=$row;				
-		}
+		$orderItems = self::getOrderItemsArray($order);		
+		$orderTaxes = self::getOrderTaxes($order,$location_id);
 		
 		$orderCompleteDate;	
 		$commentCollection = $order->getStatusHistoryCollection();								
@@ -131,11 +130,11 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
 				"OrderSourceId" => 4,
 				"TemporaryOrderId" => $order->getTemporaryOrderId(),
 				"CustomerId" => null,//guest customer
-				"SubtotalInclTax" => $order->getSubtotal() + $order->getShippingAmount() + $order->getTaxAmount(),
-				"SubtotalExclTax" => $order->getSubtotal() + $order->getShippingAmount(),
+				"SubtotalInclTax" => $order->getSubtotal() + $order->getTaxAmount(),
+				"SubtotalExclTax" => $order->getSubtotal(),
 				"Discount"=> abs($order->getDiscountAmount()),				
 				"Taxes" => $order->getTaxAmount(),
-				"Total" => $order->getGrandTotal(),				
+				"Total" => $order->getGrandTotal()-$order->getShippingAmount(),				
 				"CurrencyCode" => $order->getOrderCurrencyCode(),
 				"CreatedOn" => str_replace(' ','T', $orderCompleteDate),
 				"SalesPersonID" => -100001, //hardcoded value to map company admin				
@@ -145,7 +144,7 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
 				  array(
 					"PaymentMethodID"=> 4,// outside
 					"PaymentStatusID"=> 10,// paid
-					"PaymentAmount"=> floatval($order->getTotalPaid()),
+					"PaymentAmount"=> floatval($order->getTotalPaid()) - $order->getShippingAmount(),
 					"SalesPersonID"=> -100001, //hardcoded value to map company admin
 					"CreatedOn"=> str_replace(' ','T',$orderCompleteDate)					
 				  )
@@ -154,7 +153,7 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
 				"Discounts"=> array(),						
 				"Tips"=> array(),
 				"EmployeeCommisions"=> array(),			  
-				"OrderTaxes"=> array(),
+				"OrderTaxes"=> $orderTaxes,
 				"OrderTaskItems"=>array(),
 				"OrderBookings"=> array(),			  
 		  )
