@@ -2,7 +2,7 @@
 <config>
     <modules>
         <InspireSmart_IConnectSync>
-            <version>1.2.2.0</version>
+            <version>1.2.2.1</version>
         </InspireSmart_IConnectSync>
     </modules>
     <global>

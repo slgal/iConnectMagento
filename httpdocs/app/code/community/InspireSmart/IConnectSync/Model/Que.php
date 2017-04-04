@@ -142,7 +142,7 @@ class InspireSmart_IConnectSync_Model_Que extends Mage_Core_Model_Abstract
 				"Items"=> $orderItems,
 				"Payments"=> array(				
 				  array(
-					"PaymentMethodID"=> 4,// outside
+					"PaymentMethodID"=> 15,// outside
 					"PaymentStatusID"=> 10,// paid
 					"PaymentAmount"=> floatval($order->getTotalPaid()) - $order->getShippingAmount(),
 					"SalesPersonID"=> -100001, //hardcoded value to map company admin
